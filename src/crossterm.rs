@@ -146,7 +146,7 @@ impl From<StyledString> for style::StyledContent<String> {
 /// text_style::crossterm::render(std::io::stdout(), s)
 ///     .expect("Failed to render string");
 /// ```
-pub fn render<'a>(mut w: impl io::Write, s: impl Into<StyledStr<'a>>) -> crossterm::Result<()> {
+pub fn render<'a>(mut w: impl io::Write, s: impl Into<StyledStr<'a>>) -> std::io::Result<()> {
     use crossterm::ExecutableCommand;
 
     w.execute(crossterm::style::PrintStyledContent(s.into().into()))
@@ -168,7 +168,7 @@ pub fn render<'a>(mut w: impl io::Write, s: impl Into<StyledStr<'a>>) -> crosste
 /// text_style::crossterm::render_iter(std::io::stdout(), v.iter())
 ///     .expect("Failed to render string");
 /// ```
-pub fn render_iter<'a, I, Iter, S, W>(mut w: W, iter: I) -> crossterm::Result<()>
+pub fn render_iter<'a, I, Iter, S, W>(mut w: W, iter: I) -> std::io::Result<()>
 where
     I: IntoIterator<Item = S, IntoIter = Iter>,
     Iter: Iterator<Item = S>,
